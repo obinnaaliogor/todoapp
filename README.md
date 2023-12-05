@@ -1193,3 +1193,5 @@ screenshots of deployment.
 
 
   ![Local Image](alertconfig.jpg)
+
+![Alert monitoring](alertconfig.jpg "Alert monitoring")
