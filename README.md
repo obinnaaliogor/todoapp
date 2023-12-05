@@ -1160,9 +1160,9 @@ The location of Co-location of API, Frontend, and Proxy Containers for the use c
 
 
 
-You screenshots of deployment.
+screenshots of deployment.
 
-  - a. ![EBS-CSI-DRIVER-POD](ebs-csi-pods.jpg "EBS-CSI-DRIVER-POD")
+  ![EBS-CSI-DRIVER-POD](ebs-csi-pods.jpg "EBS-CSI-DRIVER-POD")
 
 
   - b. ![Local Image](my-vikunja.jpg)
