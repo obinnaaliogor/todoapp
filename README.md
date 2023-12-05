@@ -1165,31 +1165,31 @@ screenshots of deployment.
   ![EBS-CSI-DRIVER-POD](ebs-csi-pods.jpg "EBS-CSI-DRIVER-POD")
 
 
-  - b. ![Local Image](my-vikunja.jpg)
+  ![Local Image](my-vikunja.jpg)
 
 
-  - c. ![Local Image](my-vikunja2.jpg)
+  ![Local Image](my-vikunja2.jpg)
 
 
-  - d. ![Local Image](alert.jpg)
+  ![Local Image](alert.jpg)
 
 
-  - e. ![Local Image](certificate.jpg)
+  ![Local Image](certificate.jpg)
 
 
-  - f. ![Local Image](rule.jpg)
+  ![Local Image](rule.jpg)
 
 
-  - g. ![Local Image](alertmanagerlogs.jpg)
+  ![Local Image](alertmanagerlogs.jpg)
 
 
-  - h. ![Local Image](metrics.jpg)
+   ![Local Image](metrics.jpg)
 
 
-  - i. ![Local Image](dashboard.jpg)
+  ![Local Image](dashboard.jpg)
 
 
-  - j. ![Local Image](ingresscontroller.jpg)
+  ![Local Image](ingresscontroller.jpg)
 
 
-  - k. ![Local Image](alertconfig.jpg)
+  ![Local Image](alertconfig.jpg)
