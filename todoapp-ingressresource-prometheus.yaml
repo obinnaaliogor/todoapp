@@ -1,0 +1,56 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prometheus-server-ingress-rule
+  namespace: monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: prometheus.wiz-obi.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: prometheus-server
+            port:
+              number: 80
+---
+ apiVersion: networking.k8s.io/v1
+ kind: Ingress
+ metadata:
+   name: grafana-ingress-rule
+   namespace: grafana
+ spec:
+   ingressClassName: nginx
+   rules:
+   - host: grafana.wiz-obi.com
+     http:
+       paths:
+       - pathType: Prefix
+         path: "/"
+         backend:
+           service:
+             name: grafana
+             port:
+               number: 3000
+---
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: alertmanager-ingress-rule
+    namespace: monitoring
+  spec:
+    ingressClassName: nginx
+    rules:
+    - host: alertmanager.wiz-obi.com
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: prometheus-alertmanager
+              port:
+                number: 9093
