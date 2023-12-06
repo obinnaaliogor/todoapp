@@ -60,7 +60,7 @@ k8s-at-home     https://k8s-at-home.com/charts/
 truecharts      https://charts.truecharts.org/
 
 Deploying the Todoapp using this chart "https://k8s-at-home.com/charts/" as it aligns with my requirement and stable when compared to the version
-The [truecharts](https://kolaente.dev/vikunja/helm-chart.git) deployed is buggy causing the api pods to continously crashlooping even while following the best practice to troubleshoot it.
+The [truecharts](https://kolaente.dev/vikunja/helm-chart.git) deployed is buggy causing the api pods to continuously crashlooping even while following the best practice to troubleshoot it.
 I contacted the developers of the app and from my research everyone has faced that issue without resolution and considering the time frame to deliver my project i moved with deploying the application "https://k8s-at-home.com/charts/"
 
 ```
@@ -120,7 +120,7 @@ Before deploying the Vikunja Todo app, a careful consideration of the database d
 - **Explanation:** Choosing StatefulSets aligns with Kubernetes best practices for deploying stateful applications.
 - **Relevance:** StatefulSets are recommended for running databases on Kubernetes, providing a robust and well-supported solution.
 
-**Important Note:** The utilization of StatefulSets for the database deployment was based on the need for stable, unique network identifiers, persistent storage, ordered deployment and scaling, as well as ordered, automated rolling updates. For further details, refer to the [Kubernetes StatefulSet documentation](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/).
+**Important Note:** The utilization of StatefulSets for the database deployment and postgres db was based on the need for stable, unique network identifiers, persistent storage, ordered deployment and scaling, as well as ordered, automated rolling updates. For further details, refer to the [Kubernetes StatefulSet documentation](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/).
 
 
 
@@ -232,6 +232,8 @@ serverFiles:
           annotations:
             description: Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 5 minutes.
             summary: Pod has been in a non-ready state for more than 2 minutes.
+
+            Reference: https://prometheus.io/docs/alerting/latest/configuration/
 
 ```bash
 helm upgrade --install prometheus prometheus/prometheus --namespace  monitoring --create-namespace -f alertmanager.yaml
@@ -628,7 +630,7 @@ kubectl get pods
 
 # Network Optimization: Co-location of API, Frontend, and Proxy Containers:
 
-In the microservices architecture of the Vikunja ToDo List application, we adopted a co-location strategy by placing the API, frontend, and proxy containers within a single pod. This decision was made to enhance network efficiency, reduce latency, and improve overall application performance. Here's how this design choice contributes to network optimization:
+In the microservices architecture of the Vikunja ToDo List application, i adopted a co-location strategy by placing the API, frontend, and proxy containers within a single pod. This decision was made to enhance network efficiency, reduce latency, and improve overall application performance. Here's how this design choice contributes to network optimization:
 
 ## 1. Minimized Inter-Service Communication Latency':'
 
@@ -651,7 +653,7 @@ With the API, frontend, and proxy closely integrated, service discovery mechanis
 ## Purpose
 
 I implemented Prometheus and Grafana for proactive application health and performance monitoring.
-prometheus is the datasource of grafana.
+prometheus is the data source of grafana.
 
 ```bash
 kubectl get svc -n monitoring
@@ -1156,4 +1158,4 @@ metadata:
 
 
 keep in mind:
-The location of Co-location of API, Frontend, and Proxy Containers for the use cases as describe previously made the the yaml file for the frontend and backend are the same since they run in the same pod. Three containers in one pod.
+The Co-location of API, Frontend, and Proxy Containers for the use cases as describe previously made the the yaml file for the frontend and backend are the same since they run in the same pod. Three containers in one pod.
