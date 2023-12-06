@@ -7,8 +7,8 @@ I provisioned the infrastructure using terraform and deployed the application in
 I utilized aws s3 bucket for the remote state storage, IAM for Identity and access management, vpc for isolation and security, i utilized multiple azs for high availability and fault tolerance. Deploying ELB in the public subnet while my application runs in the private subnet for security, Internet gateway.
 I utilized NAT gateway to ensure resources in the private subnet has access to the internet securely.
 
-I impliments security group rule at the instance level and NACL at the subnet level for security enhancements while allowing the appropriate port
-The reference architecture is attached here and made use of instances that are memory optimized
+I implemented security group rule at the instance level and NACL at the subnet level for security enhancements while allowing the appropriate port.
+The reference architecture is attached here and made i use of instances that are memory optimized.
 
 I utilized aws certificate manager for ssl/tls termination. I utilized memory optimized R5 Instances: These instances are designed to provide a balance of compute, memory, and networking resources. and Network optimized  HPC6id  Instances in the HPC family are optimized for network performance and are suitable for demanding high-performance computing workloads.
 
