@@ -134,6 +134,10 @@ kubectl get pods -n default
 kubectl get svc,ep
 kubectl logs <pod-name>
 
+#validate service is resolving connection to the backend pods
+kubectl run alpine --image=alpine/curl -- sleep 20000
+kubectl exec alpine -- curl my-vikunja:8080 #where my-vikunja is your service name
+
 
 
 #install Monitoring tool
@@ -448,9 +452,23 @@ kubectl autoscale deployment my-vikunja --cpu-percent=50 --min=1 --max=10
 kubectl get hpa
 kubectl get svc my-vikunja
 Run this in a separate terminal
-so that the load generation continues and you can carry on with the rest of the steps
-kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://<vikunja-service>; done"
-```
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://my-vikunja:8080; done"
+#where my-vikunja is your service name
+
+## Load Testing with kubectl run
+
+### Description
+
+The following `kubectl run` command is used to create a BusyBox pod named "load-generator," simulating continuous traffic to the "my-vikunja" service. This load generator allows for the observation of the service's performance under sustained requests.
+
+```bash
+kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://my-vikunja:8080; done"
+
+Observations
+
+    The load generator sends HTTP requests to the "my-vikunja" service at port 8080, simulating sustained traffic for performance testing.
+    Continuous monitoring of the Horizontal Pod Autoscaler (HPA) can be achieved by running kubectl get hpa -w. This command provides real-time updates on the HPA's activity, reflecting dynamic adjustments to the number of pod replicas based on observed load.
+
 
 Implement Cluster Autoscaler to optimize costs and ensure elasticity by automatically adjusting the number of nodes in the EKS cluster based on workload demands.
 Ensuring replication of nodes to meet our workload demand i deployed cluster auto scaler to optimize cost and ensure elasticity of our infrastructure
