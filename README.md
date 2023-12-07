@@ -942,7 +942,13 @@ items:
             tcpSocket:
               port: 8080
             timeoutSeconds: 1
-          resources: {}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           startupProbe:
             failureThreshold: 30
             periodSeconds: 5
@@ -962,7 +968,13 @@ items:
         - image: vikunja/api:0.17.1
           imagePullPolicy: IfNotPresent
           name: api
-          resources: {}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           volumeMounts:
@@ -972,7 +984,13 @@ items:
         - image: vikunja/frontend:0.17.0
           imagePullPolicy: IfNotPresent
           name: frontend
-          resources: {}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         dnsPolicy: ClusterFirst
@@ -1083,7 +1101,13 @@ items:
             tcpSocket:
               port: 8080
             timeoutSeconds: 1
-          resources: {}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           startupProbe:
             failureThreshold: 30
             periodSeconds: 5
@@ -1103,7 +1127,13 @@ items:
         - image: vikunja/api:0.17.1
           imagePullPolicy: IfNotPresent
           name: api
-          resources: {}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           volumeMounts:
@@ -1113,7 +1143,13 @@ items:
         - image: vikunja/frontend:0.17.0
           imagePullPolicy: IfNotPresent
           name: frontend
-          resources: {}
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         dnsPolicy: ClusterFirst
