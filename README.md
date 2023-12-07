@@ -414,7 +414,7 @@ spec:
     kind: Deployment
     name: my-vikunja #specify the vikunja deployment (my-vikunja)
   minReplicas: 1
-  maxReplicas: 10
+  maxReplicas: 50
   metrics:
   - type: Resource
     resource:
@@ -1159,3 +1159,56 @@ metadata:
 
 keep in mind:
 The Co-location of API, Frontend, and Proxy Containers for the use cases as describe previously made the the yaml file for the frontend and backend are the same since they run in the same pod. Three containers in one pod.
+
+Important Information:
+Reason for Updating Resource Requests and Limits:
+
+OBSERVATIONS:
+➜  ~ kubectl top nodes
+NAME                          CPU(cores)   CPU%   MEMORY(bytes)   MEMORY%
+ip-10-0-11-231.ec2.internal   50m          2%     983Mi           29%
+ip-10-0-32-14.ec2.internal    77m          3%     1125Mi          33%
+➜  ~
+➜  ~ kubectl top pods
+NAME                          CPU(cores)   MEMORY(bytes)
+my-vikunja-66595cdc75-92fjh   1m           19Mi
+my-vikunja-postgresql-0       3m           21Mi
+➜  ~
+➜  ~ k top pods --containers
+POD                           NAME         CPU(cores)   MEMORY(bytes)
+my-vikunja-66595cdc75-92fjh   api          0m           9Mi
+my-vikunja-66595cdc75-92fjh   frontend     0m           2Mi
+my-vikunja-66595cdc75-92fjh   my-vikunja   1m           7Mi
+my-vikunja-postgresql-0       postgresql   3m           21Mi
+➜  ~
+➜  ~
+➜  ~ k get hpa
+NAME          REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+vikunja-hpa   Deployment/my-vikunja   0%/50%    1         50        1          76m
+
+
+Following the analysis of my application resources requirments.
+
+The adjustment of CPU and memory resource requests for the application was prompted by observed resource usage patterns and performance metrics within the Kubernetes cluster.
+The initial configuration lacked specific resource constraints, leading to potential inefficiencies in resource allocation and utilization.
+
+By introducing resource requests and limits:
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+
+Optimized Allocation: Specifying CPU and memory requests helps the Kubernetes scheduler make informed decisions about optimal pod placement within the cluster, ensuring efficient resource allocation.
+
+ Autoscaling Guidance: The resource constraints provide a foundation for the Horizontal Pod Autoscaler (HPA) to accurately scale the application based on observed metrics.
+ This aids in maintaining a balance between resource availability and application performance.
+
+Preventing Resource Contention: Setting limits prevents individual pods from consuming excessive resources, safeguarding the overall stability and reliability of the application and other co-located workloads.
+
+Enhanced Cluster Efficiency: Well-defined resource boundaries contribute to improved overall cluster efficiency, enabling a more predictable and stable environment for running applications.
+
+The specified CPU and memory values strike a balance between providing sufficient resources for normal operation and constraining resource usage during peak loads.
+Regular monitoring and further adjustments can be made based on ongoing performance assessments and evolving application requirements.
