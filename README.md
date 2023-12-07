@@ -466,8 +466,8 @@ kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never --
 
 Observations
 
-    The load generator sends HTTP requests to the "my-vikunja" service at port 8080, simulating sustained traffic for performance testing.
-    Continuous monitoring of the Horizontal Pod Autoscaler (HPA) can be achieved by running kubectl get hpa -w. This command provides real-time updates on the HPA's activity, reflecting dynamic adjustments to the number of pod replicas based on observed load.
+The load generator sends HTTP requests to the "my-vikunja" service at port 8080, simulating sustained traffic for performance testing.
+Continuous monitoring of the Horizontal Pod Autoscaler (HPA) can be achieved by running kubectl get hpa -w. This command provides real-time updates on the HPA's activity, reflecting dynamic adjustments to the number of pod replicas based on observed load.
 
 
 Implement Cluster Autoscaler to optimize costs and ensure elasticity by automatically adjusting the number of nodes in the EKS cluster based on workload demands.
