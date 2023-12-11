@@ -59,7 +59,7 @@ filebeat        https://helm.elastic.co
 k8s-at-home     https://k8s-at-home.com/charts/
 truecharts      https://charts.truecharts.org/
 
-Deploying the Todoapp using this chart "https://k8s-at-home.com/charts/" as it aligns with my requirement and stable when compared to the version
+Deployed the Todoapp using this chart "https://k8s-at-home.com/charts/" as it aligns with my requirement and stable when compared to the version
 The [truecharts](https://kolaente.dev/vikunja/helm-chart.git) deployed is buggy causing the api pods to continuously crashlooping even while following the best practice to troubleshoot it.
 I contacted the developers of the app and from my research everyone has faced that issue without resolution and considering the time frame to deliver my project i moved with deploying the application "https://k8s-at-home.com/charts/"
 
@@ -71,6 +71,7 @@ I contacted the developers of the app and from my research everyone has faced th
 
 ```bash
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+important: Your terraform code should also have a policy called AmazonEBSCSIDriverPolicy added to the nodegroup that will allow it ec2 to create pv
 
 Verify ebs-csi pods running
 
