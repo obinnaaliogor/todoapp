@@ -145,13 +145,15 @@ kubectl exec alpine -- curl my-vikunja:8080 #where my-vikunja is your service na
 helm install prometheus prometheus/prometheus --namespace monitoring --create-namespace
 #validate
 ```bash
-kubectl get pods,svc,ep -n monitoring
+kubectl get all -n monitoring
 #Check the container logs
 
-helm install grafana grafana/grafana --namespace grafana --create-namespace
+helm install grafana grafana/grafana --namespace grafana --create-namespace -f grafana-values.yaml
+#updated the grafana values file to disable ingress.
 #validate
 ```bash
 kubectl get pods,svc,ep -n grafana
+kubectl get all -n grafana
 
 # upgrade the prometheus revision with an alertmanager rule
 
@@ -247,6 +249,7 @@ helm upgrade --install prometheus prometheus/prometheus --namespace  monitoring 
 ```bash
 helm ls -n monitoring
 kubectl get pods,svc,ep -n monitoring
+kubectl get all -n monitoring
 
 
 
@@ -274,6 +277,7 @@ Create these 2 files :
 kubectl apply -f deploy.yaml
 
 #validate that the ingress controller pod is running
+kubectl get all -n ingress-nginx
 kubectl get pods,ep,svc -n ingress-nginx
 kubectl logs <pod-name> -n ingress-nginx
 kubectl get svc -n kube-system <ingress-controller-service-name>
@@ -378,8 +382,6 @@ spec:
 #validate that the ingress resource where created in the appropriate namespaces
 ```bash
 kubectl get ingress -A
-#delete the ingress resource by name grafana, we do not need it as it was created by default.
-kubectl delete ingress grafana -n grafana
 kubectl describe ingress -n grafana <ingress-resource-name> #check if its routing to the correct backend service
 kubectl describe ingress -n monitoring <ingress-resource-name> #check if its routing to the correct backend service
 kubectl describe ingress -n default <ingress-resource-name> #check if its routing to the correct backend service
@@ -1267,3 +1269,10 @@ Enhanced Cluster Efficiency: Well-defined resource boundaries contribute to impr
 
 The specified CPU and memory values strike a balance between providing sufficient resources for normal operation and constraining resource usage during peak loads.
 Regular monitoring and further adjustments can be made based on ongoing performance assessments and evolving application requirements.
+
+## Troubleshooting tips ingress
+check the logs of the ingress controller
+check the logs of the api, container
+use the -f options to stream logs
+ex
+k logs -n ingress-nginx ingress-nginx-controller-77dbbdcdd-5c4hs -f
