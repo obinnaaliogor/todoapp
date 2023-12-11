@@ -502,12 +502,13 @@ Alternatively you can run the scaling by running imperatively as shown below
 ```bash
 kubectl autoscale deployment my-vikunja --cpu-percent=50 --min=1 --max=50
 
-#validate hpa was deployed and test with a load generate
+#validate hpa is working accordingly with a load generator on our application
 ```bash
 kubectl get hpa
 kubectl get svc my-vikunja
 Run this in a separate terminal
 kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://my-vikunja:8080; done"
+
 #where my-vikunja is your service name
 
 ## Load Testing with kubectl run
@@ -527,7 +528,7 @@ Continuous monitoring of the Horizontal Pod Autoscaler (HPA) can be achieved by 
 
 Implement Cluster Autoscaler to optimize costs and ensure elasticity by automatically adjusting the number of nodes in the EKS cluster based on workload demands.
 Ensuring replication of nodes to meet our workload demand i deployed cluster auto scaler to optimize cost and ensure elasticity of our infrastructure
-Create a file. this will deploy the clusterautoscaler in the kube-system namespace
+Create a file autoscaler.yaml . this will deploy the clusterautoscaler in the kube-system namespace
 
 - clusterautoscaler :
 
