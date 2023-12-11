@@ -691,13 +691,14 @@ kubectl get pod -n kube-system
 ```bash
 kubectl top nodes
 kubectl top pods
-kubectl scale deployment my-vikunja --replicas=10
-kubectl get nodes
+kubectl scale deployment my-vikunja --replicas=20
+kubectl get nodes -w
 notice that more nodes where added
 kubectl scale deployment my-vikunja --replicas=1
-kubectl get nodes
+kubectl get nodes -w
 notice that nodes where removed, give it a little time <ttl>
-kubectl get pods
+kubectl get pods -w
+#run these tests in separate terminal
 
 
 ```
