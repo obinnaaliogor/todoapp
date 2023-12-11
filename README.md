@@ -446,11 +446,53 @@ kubectl apply -f hpa.yaml
 #validate hpa deployment
 kubectl get hpa
 The below is the output of the kubectl get hpa command, showing that our vikunja deployment has no resource request and limit defined as a result the hpa has no resource to target <unknown>/50%
-```
-➜  todoapp git:(main) ✗ kubectl get hpa
+
 NAME          REFERENCE               TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
 vikunja-hpa   Deployment/my-vikunja   <unknown>/50%   1         10        1          12m
+
+
+```markdown
+# Vikunja Helm Chart Documentation
+
+## Generate Vikunja Values File
+
+To get the values file for the Todo Vikunja application, run the following command:
+
+```bash
+helm show values k8s-at-home/vikunja > vikunja-values.yaml
 ```
+
+## Upgrade Helm Release with Resource Requests and Limits
+
+To upgrade the Helm release and add resource requests and limits, follow these steps:
+
+1. List Helm releases:
+
+```bash
+helm ls
+```
+
+2. Upgrade the Helm release:
+
+```bash
+helm upgrade my-vikunja k8s-at-home/vikunja -f vikunja-values.yaml
+# or
+# helm upgrade <release name> k8s-at-home/vikunja -f vikunja-values.yaml
+```
+
+Replace `<release name>` with the actual release name if it's different.
+
+```
+Alternatively, simply run:
+kubectl replace --force -f backend.yaml
+
+#validate hpa
+```bash
+➜  todoapp git:(main) ✗ kubectl get hpa
+NAME          REFERENCE               TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+vikunja-hpa   Deployment/my-vikunja   0%/50%    1         10        1          12m
+kubectl describe hpa vikunja-hpa
+kubectl get events
 
 
 Reference: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
