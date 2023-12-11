@@ -438,17 +438,36 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 kubectl logs -n kube-system <metrics-server-pod-name>
 kubectl top nodes
 kubectl top pods
+kubectl top pods --containers
 
 Deploy the hpa by running
-kubectl get deploy <vikunja app deploy>
-kubectl apply hpa.yaml
+kubectl apply -f hpa.yaml
+
+#validate hpa deployment
+kubectl get hpa
+The below is the output of the kubectl get hpa command, showing that our vikunja deployment has no resource request and limit defined as a result the hpa has no resource to target <unknown>/50%
+```markdown
+```
+➜  todoapp git:(main) ✗ kubectl get hpa
+NAME          REFERENCE               TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+vikunja-hpa   Deployment/my-vikunja   <unknown>/50%   1         10        1          12m
+```
+```
+
+This will render
+
+```
+➜  todoapp git:(main) ✗ kubectl get hpa
+NAME          REFERENCE               TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+vikunja-hpa   Deployment/my-vikunja   <unknown>/50%   1         10        1          12m
+```
 
 
 Reference: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
 Alternatively you can run the scaling by running imperatively as shown below
 
 ```bash
-kubectl autoscale deployment my-vikunja --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment my-vikunja --cpu-percent=50 --min=1 --max=50
 
 #validate hpa was deployed and test with a load generate
 ```bash
@@ -680,7 +699,7 @@ prometheus is the data source of grafana.
 kubectl get svc -n monitoring
 Integrating prometheus with grafana dashboard:
 Get the service name of prometheus server and add it as a data source in the grafana dashboard, note if this fails to load data to the dashboard by not connecting, use the service ip and the service port.
-ex http://prometheus-server or http://172.20.194.120:80
+ex http://prometheus-server:80 or http://172.20.194.120:80
 
 ```bash
 kubectl get svc -n monitoring
