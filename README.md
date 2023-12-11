@@ -445,13 +445,14 @@ kubectl apply -f hpa.yaml
 
 #validate hpa deployment
 kubectl get hpa
-The below is the output of the kubectl get hpa command, showing that our vikunja deployment has no resource request and limit defined as a result the hpa has no resource to target <unknown>/50%
+The below is the output of the kubectl get hpa command, showing that vikunja deployment has no resource request and limit defined and
+as a result the hpa has no resource to target <unknown>/50%
 
 NAME          REFERENCE               TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
 vikunja-hpa   Deployment/my-vikunja   <unknown>/50%   1         10        1          12m
 
 
-```markdown
+```
 # Vikunja Helm Chart Documentation
 
 ## Generate Vikunja Values File
