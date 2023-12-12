@@ -109,7 +109,7 @@ pipeline {
                     echo "Please wait for 15 minutes for DNS propagation. Verify that the hosted zone is pointing to the Ingress Controller."
 
                     // Wait for 15 minutes (900 seconds)
-                    sleep(time: 60, unit: 'SECONDS')
+                    sleep(time: 20, unit: 'SECONDS')
 
                     // Prompt the user to continue
                     input message: 'DNS update has been verified. Proceed to the next stage?', submitter: 'user'
@@ -145,6 +145,7 @@ pipeline {
                 helm upgrade --install ${env.RELEASE_NAME} k8s-at-home/vikunja \
                 --namespace default -f vikunja-values.yaml
                 kubectl replace --force -f backend.yaml
+                sleep 5
             """
 
             // Validate Todo app deployment
