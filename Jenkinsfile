@@ -119,7 +119,7 @@ pipeline {
         stage('Implement Cert Manager') {
             steps {
                 script {
-                    sh "helm install cert-manager jetstack/cert-manager --version ${env.CERT_MANAGER_HELM_CHART_VERSION} \
+                    sh "helm upgrade --install cert-manager jetstack/cert-manager --version ${env.CERT_MANAGER_HELM_CHART_VERSION} \
                         --namespace cert-manager --create-namespace \
                         -f cert-manager-values-v${env.CERT_MANAGER_HELM_CHART_VERSION}.yaml"
 
