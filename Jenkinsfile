@@ -106,10 +106,10 @@ pipeline {
             steps {
                 script {
                     // Display a message to instruct the user to wait for DNS propagation
-                    echo "Please wait for 15 minutes for DNS propagation. Verify that the hosted zone is pointing to the Ingress Controller."
+                    echo "Please wait for 5 seconds for DNS propagation. Verify that the hosted zone is pointing to the Ingress Controller."
 
-                    // Wait for 15 minutes (900 seconds)
-                    sleep(time: 20, unit: 'SECONDS')
+                    // Wait for 5 seconds (5 seconds)
+                    sleep(time: 5, unit: 'SECONDS')
 
                     // Prompt the user to continue
                     input message: 'DNS update has been verified. Proceed to the next stage?', submitter: 'user'
@@ -169,8 +169,6 @@ pipeline {
                 kubectl describe ingress -n monitoring
                 kubectl describe ingress -n default
                 sleep 5
-                curl -Li http://todo.obinnaaliogor.xyz/
-                curl -v -k https://todo.obinnaaliogor.xyz/
             """
         }
     }
