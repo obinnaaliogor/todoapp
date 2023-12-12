@@ -182,6 +182,7 @@ pipeline {
                     echo "Deploying Metrics server"
                     sh "kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
                     sh "kubectl get pod -n kube-system "
+                    sh "sleep 5"
                     sh "kubectl top nodes"
                     sh "kubectl top pods"
                     sh "kubectl top pods --containers"
