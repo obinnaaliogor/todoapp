@@ -4,12 +4,17 @@ metadata:
   namespace: default
   name: vikunja-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    cert-manager.io/issuer: letsencrypt-vikunja
+    #this should match the cert manager resource name
 spec:
+  tls:
+  - hosts:
+    - todo.obinnaaliogor.xyz
+    secretName: letsencrypt-vikunja
+    #this should match the cert manager resource name
   ingressClassName: nginx
   rules:
-  - host: www.wiz-obi.com
+  - host: todo.obinnaaliogor.xyz
     http:
       paths:
       - pathType: Prefix

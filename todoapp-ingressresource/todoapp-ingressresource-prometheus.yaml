@@ -1,0 +1,83 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prometheus-server-ingress-rule
+  namespace: monitoring
+  annotations:
+    cert-manager.io/issuer: letsencrypt-prometheus
+    #this should match the cert manager resource name
+spec:
+  tls:
+  - hosts:
+    - prometheus.obinnaaliogor.xyz
+    secretName: letsencrypt-prometheus
+    #this should match the cert manager resource name for this ingress
+    #this is because we will create cert manager resource for each ingress resource defined b/c its not a wild card certificate
+  ingressClassName: nginx
+  rules:
+  - host: prometheus.obinnaaliogor.xyz
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: prometheus-server
+            port:
+              number: 80
+---
+ apiVersion: networking.k8s.io/v1
+ kind: Ingress
+ metadata:
+   name: grafana-ingress-rule
+   namespace: grafana
+   annotations:
+     cert-manager.io/issuer: letsencrypt-grafana
+     #this should match the cert manager resource name
+ spec:
+   tls:
+   - hosts:
+     - grafana.obinnaaliogor.xyz
+     secretName: letsencrypt-grafana
+     #this should match the cert manager resource name for this ingress
+     #this is because we will create cert manager resource for each ingress resource defined b/c its not a wild card certificate
+   ingressClassName: nginx
+   rules:
+   - host: grafana.obinnaaliogor.xyz
+     http:
+       paths:
+       - pathType: Prefix
+         path: "/"
+         backend:
+           service:
+             name: grafana
+             port:
+               number: 3000
+---
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: alertmanager-ingress-rule
+    namespace: monitoring
+    annotations:
+      cert-manager.io/issuer: letsencrypt-alertmanager
+      #this should match the cert manager resource name
+  spec:
+    tls:
+    - hosts:
+      - grafana.obinnaaliogor.xyz
+      secretName: letsencrypt-alertmanager
+      #this should match the cert manager resource name for this ingress
+      #this is because we will create cert manager resource for each ingress resource defined b/c its not a wild card certificate
+    ingressClassName: nginx
+    rules:
+    - host: alertmanager.obinnaaliogor.xyz
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: prometheus-alertmanager
+              port:
+                number: 9093

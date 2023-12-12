@@ -71,7 +71,7 @@ I contacted the developers of the app and from my research everyone has faced th
 
 ```bash
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
-important: Your terraform code should also have a policy called AmazonEBSCSIDriverPolicy added to the nodegroup that will allow it ec2 to create pv
+important: Your terraform code should also have a policy called AmazonEBSCSIDriverPolicy added to the nodegroup that will allow ec2 to create pv
 
 Verify ebs-csi pods running
 
@@ -432,8 +432,8 @@ spec:
 
 
 ```bash
-#validate that the metrics server is created and running
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+#validate that the metrics server is created and running
  kubectl get pod -n kube-system <metrics-server-pod-name>
 kubectl logs -n kube-system <metrics-server-pod-name>
 kubectl top nodes

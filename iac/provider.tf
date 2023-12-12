@@ -6,7 +6,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket         = "wiz-terraform-state-file"
-    key            = "terraform-git-action/rentzone/terraform.tfstate"
+    key            = "terraform-todo-jenkins/rentzone/terraform.tfstate"
     region         = "us-east-1"
     dynamodb_table = "terraform-state-lock"
   }
