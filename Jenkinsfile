@@ -232,7 +232,7 @@ pipeline {
                     sh "kubectl get all -n monitoring"
 
                     // Install Grafana
-                    sh "helm install grafana grafana/grafana \
+                    sh "helm upgrade --install grafana grafana/grafana \
                         --namespace grafana --create-namespace -f grafana-values.yaml"
 
                     // Validate Grafana deployment
