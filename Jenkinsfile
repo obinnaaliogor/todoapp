@@ -152,7 +152,6 @@ pipeline {
             sh """
                 helm ls -n default
                 kubectl get all -n default
-                kubectl run alpine --image=alpine/curl -- sleep 20000
                 kubectl exec alpine -- curl ${env.RELEASE_NAME}:8080
                 sleep 5
                 kubectl delete pod alpine
