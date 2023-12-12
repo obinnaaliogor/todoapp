@@ -124,6 +124,8 @@ pipeline {
                         -f cert-manager-values-v${env.CERT_MANAGER_HELM_CHART_VERSION}.yaml"
 
                     sh "sleep 5"
+                    sh "kubectl create ns grafana"
+                    sh "kubectl create ns monitoring"
 
                     // Cert manager resource kind: issuer will be here, and since it's namespaced, we will have an issuer for vikunja app, alert manager, prometheus, grafana
                     sh "kubectl apply -f k8s-manifests/"
