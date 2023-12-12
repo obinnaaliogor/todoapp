@@ -176,6 +176,7 @@ pipeline {
             steps {
                 script {
                     // Deploy metrics server
+                    echo "Deploying Metrics server"
                     sh "kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
                     sh "kubectl get pod -n kube-system "
                     sh "kubectl top nodes"
