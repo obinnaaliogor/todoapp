@@ -6,7 +6,7 @@ pipeline {
         NGINX_CHART_VERSION = '4.8.4' // Replace with the actual version
         SLACK_CHANNEL = '#buildstatus-jenkins-pipeline'
         EKS_CLUSTER_NAME = 'demo'
-        HELM_CHART_PATH = 'path/to/your/helm/chart'
+        //HELM_CHART_PATH = 'path/to/your/helm/chart'
         RELEASE_NAME = 'my-vikunja'
         CERT_MANAGER_HELM_CHART_VERSION = '1.13.2'
         AWS_DEFAULT_REGION = 'us-east-1'
@@ -243,6 +243,34 @@ pipeline {
                 }
             }
         }
+stage('Validation and Testing') {
+        steps {
+            script {
+                // Validate HPA
+                sh 'kubectl get hpa'
+
+                // Test application accessibility
+                sh 'curl -Li http://todo.obinnaaliogor.xyz/'
+                sh 'curl -v -k https://todo.obinnaaliogor.xyz/'
+                sh 'sleep 5'
+
+                // Validate ingress and cert-manager resources in the monitoring namespace
+                sh 'kubectl get crd'
+                sh 'kubectl get all -n monitoring'
+                sh 'kubectl get certificates.cert-manager.io -n monitoring'
+                sh 'kubectl get issuers.cert-manager.io -n monitoring'
+                sh 'kubectl get ingress -n monitoring'
+                sh 'kubectl describe ingress -n monitoring'
+
+                // Validate ingress and cert-manager resources in the default namespace
+                sh 'kubectl get issuers.cert-manager.io -n default'
+                sh 'kubectl get certificates.cert-manager.io -n default'
+                sh 'kubectl get ingress -n default'
+                sh 'kubectl describe ingress -n default'
+            }
+        }
+    }
+
     }
 
     post {
