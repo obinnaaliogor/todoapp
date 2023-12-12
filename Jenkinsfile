@@ -25,15 +25,26 @@ pipeline {
         }
 
     stage('Add Helm Repositories') {
-        steps {
-            script {
-                def helmRepos = readJSON(text: env.HELM_REPOSITORIES)
+    steps {
+        script {
+            echo "HELM_REPOSITORIES: ${env.HELM_REPOSITORIES}"
+
+            def helmRepos = readJSON(text: env.HELM_REPOSITORIES)
+            echo "Parsed Helm Repositories: ${helmRepos}"
+
+            try {
                 helmRepos.each { repo ->
-                    sh "helm repo add ${repo.name} ${repo.url}"
+                    sh "helm repo add ${repo.name} ${repo.url} --debug"
                 }
+                sh 'helm repo list'
+            } catch (Exception e) {
+                echo "Error encountered: ${e.getMessage()}"
+                throw e
             }
         }
     }
+}
+
 
         stage('Validate Helm Repositories') {
             steps {
