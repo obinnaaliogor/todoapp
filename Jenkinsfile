@@ -34,7 +34,7 @@ pipeline {
 
             try {
                 helmRepos.each { repo ->
-                    sh "helm repo add ${repo.name} ${repo.url} --debug"
+                    sh "helm repo add ${repo.name} ${repo.url}"
                 }
                 sh 'helm repo list'
             } catch (Exception e) {
