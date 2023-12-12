@@ -87,7 +87,7 @@ pipeline {
                 script {
                     echo "Installing and upgrading NGINX Ingress Controller"
                     sh """
-                        helm install ingress-nginx ingress-nginx/ingress-nginx \
+                        helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
                         --version ${env.NGINX_CHART_VERSION} \
                         -f "nginx-values-v${env.NGINX_CHART_VERSION}.yaml" \
                         --namespace ingress-nginx \
