@@ -28,7 +28,8 @@ pipeline {
     steps {
         script {
             echo "Adding Helm repo: truecharts"
-            sh "helm repo add truecharts https://charts.truecharts.org/ --debug"
+            sh "helm repo add truecharts https://charts.truecharts.org/"
+            sh "helm repo add cert-manager https://charts.jetstack.io"
             sh 'helm repo list'
         }
     }
