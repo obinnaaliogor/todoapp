@@ -2,11 +2,7 @@ pipeline {
     agent any
 
     environment {
-        HELM_REPOSITORIES = [
-            [name: 'truecharts', url: 'https://charts.truecharts.org/'],
-            [name: 'jetstack', url: 'https://charts.jetstack.io']
-            // Add other repositories as needed
-        ]
+        HELM_REPOSITORIES = '[{"name": "truecharts", "url": "https://charts.truecharts.org/"}, {"name": "jetstack", "url": "https://charts.jetstack.io"}]'
         NGINX_CHART_VERSION = '4.8.4' // Replace with the actual version
         SLACK_CHANNEL = '#buildstatus-jenkins-pipeline'
         EKS_CLUSTER_NAME = 'demo'
@@ -28,15 +24,16 @@ pipeline {
             }
         }
 
-        stage('Add Helm Repositories') {
-            steps {
-                script {
-                    HELM_REPOSITORIES.each { repo ->
-                        sh "helm repo add ${repo.name} ${repo.url}"
-                    }
+    stage('Add Helm Repositories') {
+        steps {
+            script {
+                def helmRepos = readJSON(text: env.HELM_REPOSITORIES)
+                helmRepos.each { repo ->
+                    sh "helm repo add ${repo.name} ${repo.url}"
                 }
             }
         }
+    }
 
         stage('Validate Helm Repositories') {
             steps {
