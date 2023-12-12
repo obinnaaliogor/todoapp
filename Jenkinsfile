@@ -30,6 +30,7 @@ pipeline {
             echo "Adding Helm repo: truecharts"
             sh "helm repo add truecharts https://charts.truecharts.org/"
             sh "helm repo add cert-manager https://charts.jetstack.io"
+            sh "helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx"
             sh 'helm repo list'
         }
     }
