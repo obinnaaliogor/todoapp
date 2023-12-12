@@ -20,7 +20,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo "Checking out code from GitHub"
-               // git 'https://github.com/obinnaaliogor/todoapp.git'
+                git 'https://github.com/obinnaaliogor/todoapp.git'
             }
         }
 
