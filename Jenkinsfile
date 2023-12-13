@@ -27,6 +27,11 @@ pipeline {
     stage('Add Helm Repositories - Test') {
     steps {
         script {
+                    // Skip this stage if TERRAFORM_ACTION is 'destroy'
+            if (env.TERRAFORM_ACTION == 'destroy') {
+                echo "Skipping Add Helm Repositories - Test as TERRAFORM_ACTION is set to destroy"
+                return
+            }
             echo "Adding Helm repo: truecharts"
             sh "helm repo add truecharts https://charts.truecharts.org/"
             sh "helm repo add cert-manager https://charts.jetstack.io"
@@ -44,6 +49,11 @@ pipeline {
         stage('Validate Helm Repositories') {
             steps {
                 script {
+                     // Skip this stage if TERRAFORM_ACTION is 'destroy'
+            if (env.TERRAFORM_ACTION == 'destroy') {
+                echo "Skipping Validate Helm Repositories as TERRAFORM_ACTION is set to destroy"
+                return
+            }
                     sh 'helm repo ls'
                 }
             }
