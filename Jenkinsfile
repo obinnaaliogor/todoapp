@@ -10,7 +10,7 @@ pipeline {
         RELEASE_NAME = 'my-vikunja'
         CERT_MANAGER_HELM_CHART_VERSION = '1.13.2'
         AWS_DEFAULT_REGION = 'us-east-1'
-        TERRAFORM_ACTION = 'destroy'
+        TERRAFORM_ACTION = 'apply'
         REGION = 'us-east-1'
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
