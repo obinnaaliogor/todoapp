@@ -117,6 +117,7 @@ pipeline {
             }
                     echo "Installing and upgrading NGINX Ingress Controller"
                     sh """
+                        helm repo update
                         helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
                         --version ${env.NGINX_CHART_VERSION} \
                         -f "nginx-values-v${env.NGINX_CHART_VERSION}.yaml" \
