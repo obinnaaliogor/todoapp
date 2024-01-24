@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         HELM_REPOSITORIES = '[{"name": "truecharts", "url": "https://charts.truecharts.org/"}, {"name": "jetstack", "url": "https://charts.jetstack.io"}]'
-        NGINX_CHART_VERSION = '4.8.4' // Replace with the actual version
+        NGINX_CHART_VERSION = '4.9.0' // Replace with the actual version
         SLACK_CHANNEL = '#buildstatus-jenkins-pipeline'
         EKS_CLUSTER_NAME = 'demo'
         //HELM_CHART_PATH = 'path/to/your/helm/chart'
